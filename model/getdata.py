@@ -10,6 +10,7 @@ class Get():
         super().__init__()
 
     def get_html(url):
+        "Получение кода html по url"
         response = requests.get(url)
         print(response)
         return response.text
@@ -26,12 +27,14 @@ class Get():
 
 
     def get_id(html):
+        "Парсинг по классу"
         soup = BeautifulSoup(html, 'lxml')
         id = soup.find('div', class_="registry-entry__header-mid__number").find('a', target="_blank").get('href')
         return id
 
 
     def get_id_re(html):
+        "Парсинг по регулярке"
         soup = BeautifulSoup(html, 'lxml')
         id = soup.find('div', class_="registry-entry__header-mid__number")
         id = re.findall(r'href\s*=\s*["\'](.*?)["\']', str(id))
